@@ -1,5 +1,6 @@
 import * as React from "react";
 import {Song} from "../models/models";
+import {YoutubeAudioPlayer} from "./YoutubeAudioPlayer";
 
 export interface SongProps {
   song: Song
@@ -11,7 +12,7 @@ export class SongComponent extends React.Component<SongProps> {
     return (
       <div style={{backgroundColor: "#7a7a7a", margin: "10px", padding: "5px"}}>
         <p>{this.props.song.name}</p>
-        <p>{this.props.song.youtubeUrl}</p>
+        <YoutubeAudioPlayer videoId={this.props.song.youtubeId}/>
       </div>
     )
   }

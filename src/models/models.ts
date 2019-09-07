@@ -1,6 +1,6 @@
 export type Song = {
   name: string;
-  youtubeUrl: string;
+  youtubeId: string;
 };
 
 export enum Winner {

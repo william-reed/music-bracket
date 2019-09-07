@@ -10,12 +10,12 @@ export class BracketContainer extends React.Component {
             number: 1,
             matches: [
               {
-                home: {name: "Runaway", youtubeUrl: "url"},
-                away: {name: "School Spirit", youtubeUrl: "url"}
+                home: {name: "Runaway", youtubeId: "Jg5wkZ-dJXA"},
+                away: {name: "School Spirit", youtubeId: "-MOIPnu50O4"}
               },
               {
-                home: {name: "Earfquake", youtubeUrl: "url"},
-                away: {name: "Flowers", youtubeUrl: "url"}
+                home: {name: "Earfquake", youtubeId: "HmAsUQEFYGI"},
+                away: {name: "After the Storm", youtubeId: "9f5zD7ZSNpQ"}
               }
             ]
           }

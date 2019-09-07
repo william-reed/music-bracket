@@ -12,7 +12,9 @@ export class RoundComponent extends React.Component<RoundProps> {
     return (
       <div style={{backgroundColor: "#ededed", margin: "10px", padding: "5px"}}>
         <h4>Round {this.props.round.number}</h4>
-        {this.props.round.matches.map(match => <MatchComponent match={match}/>)}
+        {this.props.round.matches.map((match, index: number) =>
+          <MatchComponent key={this.props.round.number + '-' + index} match={match}/>)
+        }
       </div>
     )
   }

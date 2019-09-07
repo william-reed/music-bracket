@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import {SongComponent} from "./SongComponent";
 import {Match} from "../models/models";
 
