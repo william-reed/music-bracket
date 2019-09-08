@@ -10,7 +10,7 @@ export interface MatchProps {
 export class MatchComponent extends React.Component<MatchProps> {
   render() {
     return (
-      <div style={{backgroundColor: "#c8c8c8", margin: "10px", padding: "5px"}}>
+      <div className={'match'}>
         <SongComponent song={this.props.match.home}/>
         <SongComponent song={this.props.match.away}/>
       </div>

@@ -1,0 +1,25 @@
+.bracket {
+    display: flex;
+    flex-direction: row;
+}
+
+.round {
+    /* might not need flex stuff for the round */
+    display: flex;
+    flex-direction: column;
+    background: #ededed;
+    margin: 10px;
+    padding: 5px;
+}
+
+.match {
+    background: #c8c8c8;
+    margin: 10px;
+    padding: 5px;
+}
+
+.song {
+    background: #7a7a7a;
+    margin: 10px;
+    padding: 5px;
+}

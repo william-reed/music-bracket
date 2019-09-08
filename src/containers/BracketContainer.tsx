@@ -4,7 +4,7 @@ import {RoundComponent} from "../components/RoundComponent";
 export class BracketContainer extends React.Component {
   render() {
     return (
-      <div>
+      <div className={'bracket'}>
         <RoundComponent round={
           {
             number: 1,
@@ -17,6 +17,18 @@ export class BracketContainer extends React.Component {
                 home: {name: "Earfquake", youtubeId: "HmAsUQEFYGI"},
                 away: {name: "After the Storm", youtubeId: "9f5zD7ZSNpQ"}
               }
+            ]
+          }
+        }/>
+
+        <RoundComponent round={
+          {
+            number: 2,
+            matches: [
+              {
+                home: {name: "Runaway", youtubeId: "Jg5wkZ-dJXA"},
+                away: {name: "After the Storm", youtubeId: "9f5zD7ZSNpQ"}
+              },
             ]
           }
         }/>

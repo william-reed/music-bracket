@@ -10,7 +10,7 @@ export interface SongProps {
 export class SongComponent extends React.Component<SongProps> {
   render() {
     return (
-      <div style={{backgroundColor: "#7a7a7a", margin: "10px", padding: "5px"}}>
+      <div className={'song'}>
         <p>{this.props.song.name}</p>
         <YoutubeAudioPlayer videoId={this.props.song.youtubeId}/>
       </div>
