@@ -1,11 +1,12 @@
 import React from "react";
 
 export interface YoutubeAudioPlayerProps {
-  videoId: string
+  videoId: string,
 }
 
 interface YoutubeAudioPlayerState {
-  id: number
+  id: number,
+  isPlaying: boolean,
 }
 
 /**
@@ -28,12 +29,14 @@ export class YoutubeAudioPlayer extends React.Component<YoutubeAudioPlayerProps,
   private static loadingQueue: (() => void)[] = [];
   // iframe / vid player
   private player: any;
+  private playerReady = false;
 
   constructor(props: YoutubeAudioPlayerProps) {
     super(props);
 
     this.state = {
       id: YoutubeAudioPlayer.number++,
+      isPlaying: false,
     };
   }
 
@@ -77,19 +80,49 @@ export class YoutubeAudioPlayer extends React.Component<YoutubeAudioPlayerProps,
     // the Player object is created uniquely based on the id
     this.player = new (window as any).YT.Player(`youtube-player-${this.state.id}`, {
       videoId: this.props.videoId,
+      height: '0',
+      width: '0',
       events: {
         onReady: this.onPlayerReady,
+        onStateChange: this.onPlayerStateChange,
       },
     });
   };
 
   onPlayerReady = (event: any) => {
-    // event.target.playVideo();
+    this.playerReady = true;
+    this.player.setPlaybackQuality("small");
+  };
+
+  onPlayerStateChange = (event: any) => {
+    let state: number = event.data;
+
+    if (state === 1) {
+      this.setState({isPlaying: true});
+    } else {
+      this.setState({isPlaying: false});
+    }
+  };
+
+  playPauseClicked = () => {
+    if (!this.playerReady) {
+      console.log("player not ready yet");
+      return;
+    }
+
+    if (this.state.isPlaying) {
+      this.player.pauseVideo();
+    } else {
+      this.player.playVideo();
+    }
   };
 
   render() {
     return (
-      <div id={`youtube-player-${this.state.id}`}/>
+      <div>
+        <button onClick={this.playPauseClicked}>{this.state.isPlaying ? "Pause" : "Play"}</button>
+        <div id={`youtube-player-${this.state.id}`}/>
+      </div>
     );
   };
 }
