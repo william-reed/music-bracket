@@ -4,15 +4,13 @@ export type Song = {
 };
 
 export enum Winner {
-  HOME, AWAY
+  HOME, AWAY, NONE
 }
 
 export type Match = {
   home: Song,
   away: Song
-  prevMatchHome?: Match,
-  prevMatchAway?: Match,
-  winner?: Winner
+  winner: Winner
 }
 
 export type Round = {

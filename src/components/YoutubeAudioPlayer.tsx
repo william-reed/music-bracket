@@ -92,6 +92,9 @@ export class YoutubeAudioPlayer extends React.Component<YoutubeAudioPlayerProps,
   onPlayerReady = (event: any) => {
     this.playerReady = true;
     this.player.setPlaybackQuality("small");
+
+    // change video start to halfway through as music videos usually have junk at the start
+    this.player.seekTo(this.player.getDuration() / 2);
   };
 
   onPlayerStateChange = (event: any) => {
