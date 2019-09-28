@@ -1,7 +1,8 @@
 import * as React from "react";
-import {RoundComponent} from "../components/RoundComponent";
 import {Bracket, Match, Round, Song, Winner} from "../models/models";
-import {WinnerComponent} from "../components/WinnerComponent";
+import './BracketContainer.css'
+import {RoundComponent} from "../components/bracket/RoundComponent";
+import {WinnerComponent} from "../components/bracket/WinnerComponent";
 
 interface BracketState {
   bracket: Bracket

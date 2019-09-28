@@ -1,7 +1,9 @@
 import React from "react";
 
+// TODO: give audio only a default
 export interface YoutubeAudioPlayerProps {
   videoId: string,
+  audioOnly: boolean,
 }
 
 interface YoutubeAudioPlayerState {
@@ -10,7 +12,7 @@ interface YoutubeAudioPlayerState {
 }
 
 /**
- * Loading state of youtube iframe api
+ * Loading store.ts of youtube iframe api
  */
 enum LoadingState {
   NOT_STARTED,
@@ -18,10 +20,13 @@ enum LoadingState {
   DONE,
 }
 
+const PLAYER_WIDTH = 355;
+const PLAYER_HEIGHT = 200;
+
 /**
  * YouTube audio only player
  */
-export class YoutubeAudioPlayer extends React.Component<YoutubeAudioPlayerProps, YoutubeAudioPlayerState> {
+export class YouTubePlayer extends React.Component<YoutubeAudioPlayerProps, YoutubeAudioPlayerState> {
   // each needs a unique id
   private static number = 0;
   private static loadingState = LoadingState.NOT_STARTED;
@@ -35,15 +40,15 @@ export class YoutubeAudioPlayer extends React.Component<YoutubeAudioPlayerProps,
     super(props);
 
     this.state = {
-      id: YoutubeAudioPlayer.number++,
+      id: YouTubePlayer.number++,
       isPlaying: false,
     };
   }
 
   componentDidMount() {
-    switch (YoutubeAudioPlayer.loadingState) {
+    switch (YouTubePlayer.loadingState) {
       case LoadingState.NOT_STARTED: {
-        YoutubeAudioPlayer.loadingState = LoadingState.QUEUING;
+        YouTubePlayer.loadingState = LoadingState.QUEUING;
 
         const tag = document.createElement('script');
         tag.src = 'https://www.youtube.com/iframe_api';
@@ -55,7 +60,7 @@ export class YoutubeAudioPlayer extends React.Component<YoutubeAudioPlayerProps,
         break;
       }
       case LoadingState.QUEUING: {
-        YoutubeAudioPlayer.loadingQueue.push(this.loadVideo);
+        YouTubePlayer.loadingQueue.push(this.loadVideo);
         break;
       }
       case LoadingState.DONE: {
@@ -66,11 +71,11 @@ export class YoutubeAudioPlayer extends React.Component<YoutubeAudioPlayerProps,
   };
 
   youtubeReady = () => {
-    YoutubeAudioPlayer.loadingState = LoadingState.DONE;
+    YouTubePlayer.loadingState = LoadingState.DONE;
 
     // drain the queue
-    YoutubeAudioPlayer.loadingQueue.forEach((load) => load());
-    YoutubeAudioPlayer.loadingQueue = [];
+    YouTubePlayer.loadingQueue.forEach((load) => load());
+    YouTubePlayer.loadingQueue = [];
 
     // load my video
     this.loadVideo();
@@ -78,10 +83,20 @@ export class YoutubeAudioPlayer extends React.Component<YoutubeAudioPlayerProps,
 
   loadVideo = () => {
     // the Player object is created uniquely based on the id
+    let width, height;
+
+    if (this.props.audioOnly) {
+      width = '0';
+      height = '0';
+    } else {
+      width = `${PLAYER_WIDTH}`;
+      height = `${PLAYER_HEIGHT}`;
+    }
+
     this.player = new (window as any).YT.Player(`youtube-player-${this.state.id}`, {
       videoId: this.props.videoId,
-      height: '0',
-      width: '0',
+      width: width,
+      height: height,
       events: {
         onReady: this.onPlayerReady,
         onStateChange: this.onPlayerStateChange,
@@ -91,10 +106,14 @@ export class YoutubeAudioPlayer extends React.Component<YoutubeAudioPlayerProps,
 
   onPlayerReady = (event: any) => {
     this.playerReady = true;
-    this.player.setPlaybackQuality("small");
+
+    if (this.props.audioOnly) {
+      this.player.setPlaybackQuality("small");
+    }
 
     // change video start to halfway through as music videos usually have junk at the start
     this.player.seekTo(this.player.getDuration() / 2);
+    this.player.pauseVideo();
   };
 
   onPlayerStateChange = (event: any) => {
@@ -123,7 +142,9 @@ export class YoutubeAudioPlayer extends React.Component<YoutubeAudioPlayerProps,
   render() {
     return (
       <div>
+        {this.props.audioOnly &&
         <button onClick={this.playPauseClicked}>{this.state.isPlaying ? "Pause" : "Play"}</button>
+        }
         <div id={`youtube-player-${this.state.id}`}/>
       </div>
     );

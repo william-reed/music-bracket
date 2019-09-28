@@ -1,6 +1,6 @@
 import * as React from "react";
-import {Song} from "../models/models";
-import {YoutubeAudioPlayer} from "./YoutubeAudioPlayer";
+import {Song} from "../../models/models";
+import {YouTubePlayer} from "../youtube/YouTubePlayer";
 
 export interface SongProps {
   song: Song
@@ -14,7 +14,7 @@ export class SongComponent extends React.Component<SongProps> {
     return (
       <div className={'song ' + (this.props.winner && 'winner')}>
         <p>{this.props.song.name}</p>
-        <YoutubeAudioPlayer videoId={this.props.song.youtubeId}/>
+        <YouTubePlayer videoId={this.props.song.youtubeId} audioOnly={true}/>
         <input type="radio" onChange={this.props.selected} checked={this.props.winner}/>
       </div>
     )

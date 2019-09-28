@@ -1,3 +1,5 @@
+// interface vs types?!?!
+
 export type Song = {
   name: string;
   youtubeId: string;
@@ -21,4 +23,14 @@ export type Round = {
 export type Bracket = {
   title: string,
   rounds: Array<Round>
+}
+
+export interface SongAndId {
+  title: string,
+  youtubeId: string
+}
+
+export interface IndexedSongAndId {
+  index: number,
+  song: SongAndId
 }

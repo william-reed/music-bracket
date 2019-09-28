@@ -1,0 +1,27 @@
+.builder {
+    display: flex;
+    flex-direction: row;
+}
+
+.search {
+    flex: 1;
+    background: #ededed;
+}
+
+.picker {
+    flex: 1;
+    background: #c8c8c8;
+}
+
+.song-picker {
+    background: #7a7a7a;
+}
+
+.search-result {
+    background: #7a7a7a;
+}
+
+.space {
+    margin: 10px;
+    padding: 5px;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import {SongComponent} from "./SongComponent";
-import {Match, Winner} from "../models/models";
+import {Match, Winner} from "../../models/models";
 
 export interface MatchProps {
   match: Match,

@@ -1,4 +1,4 @@
-import {Match, Round, Winner} from "../models/models";
+import {Match, Round, Winner} from "../../models/models";
 import * as React from "react";
 import {MatchComponent} from "./MatchComponent";
 
@@ -18,7 +18,7 @@ export class RoundComponent extends React.Component<RoundProps, RoundState> {
   constructor(props: RoundProps) {
     super(props);
 
-    // react complains without giving an initial state with the use of getDerivedStateFromProps
+    // react complains without giving an initial store.ts with the use of getDerivedStateFromProps
     this.state = {modifiedRound: this.props.round};
   }
 
