@@ -1,4 +1,4 @@
-import {SongAndId} from "./models/models";
+import {ApiBracket, SongAndId} from "./models/models";
 
 const HOST = "http://127.0.0.1:8080";
 
@@ -44,3 +44,22 @@ export async function videoSearch(query: string): Promise<SongAndId[]> {
   ];
 }
 
+// TODO: just a mock for now
+// noinspection TypeScriptUnresolvedVariable
+export async function getBracket(id: string): Promise<ApiBracket> {
+  await sleep(200);
+
+  return {
+    title: "",
+    songs: [
+      {title: "Runaway", youtubeId: "Jg5wkZ-dJXA"},
+      {title: "School Spirit", youtubeId: "-MOIPnu50O4"},
+      {title: "Earfquake", youtubeId: "HmAsUQEFYGI"},
+      {title: "After the Storm", youtubeId: "9f5zD7ZSNpQ"},
+      {title: "What would Meek do?", youtubeId: "hGhC473BCIM"},
+      {title: "Cash Machine", youtubeId: "9rx0eqQl8wk"},
+      {title: "Pink + White", youtubeId: "uzS3WG6__G4"},
+      {title: "Ms. Jackson", youtubeId: "MYxAiK6VnXw"},
+    ],
+  }
+}

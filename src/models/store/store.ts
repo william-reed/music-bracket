@@ -1,6 +1,8 @@
 import {BuilderParentStore} from "./builder-store";
+import {BracketParentStore} from "./bracket-store";
 
-export interface BracketStore {
-  builder: BuilderParentStore
+export interface DataStore {
+  builder: BuilderParentStore,
+  bracket: BracketParentStore
 }
 

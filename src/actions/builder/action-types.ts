@@ -33,7 +33,6 @@ export type BuilderActionTypes = SetTitleAction | SetNumSongsAction | SetSongAct
 export const SET_SEARCH_QUERY = "search:query";
 export const SET_SEARCH_RESULTS = "search:results";
 export const SET_SEARCH_LOADING = "search:loading";
-export const SEARCH_CLICKED = "search:clicked";
 
 interface SetSearchQueryAction {
   type: typeof SET_SEARCH_QUERY,
