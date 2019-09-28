@@ -10,9 +10,6 @@ import {
   SET_TITLE
 } from "./action-types";
 import {SongAndId} from "../../models/models";
-import {videoSearch} from "../../api";
-import {ThunkAction} from "redux-thunk";
-import {Action, Dispatch, ActionCreator} from "redux";
 
 export function setTitle(title: string): BuilderActionTypes {
   return {
@@ -68,33 +65,3 @@ export function setSearchLoading(loading: boolean): BuilderSearchActionTypes {
     payload: loading
   }
 }
-
-// noinspection TypeScriptUnresolvedVariable
-// export const thunkSearchClicked =
-//   (query: string): ActionCreator<ThunkAction<Promise<BuilderSearchActionTypes>, SongAndId[], null, BuilderSearchActionTypes>> =>
-//     async (dispatch: Dispatch): Promise<BuilderSearchActionTypes> => {
-//       const results = await videoSearch(query);
-//
-//       return dispatch(
-//         setSearchResults(results)
-//       )
-//     };
-
-// noinspection TypeScriptUnresolvedVariable
-// export const thunkSearchClicked: ActionCreator<
-//   ThunkAction<
-//     Promise<BuilderSearchActionTypes>,
-//     SongAndId[],
-//     string,
-//     BuilderSearchActionTypes
-//     >
-//   > = (query: string) => {
-//   // noinspection TypeScriptUnresolvedVariable
-//   return async (dispatch: Dispatch): Promise<BuilderSearchActionTypes> => {
-//     const results = await videoSearch(query);
-//
-//     return dispatch(
-//       setSearchResults(results)
-//     )
-//   };
-// };

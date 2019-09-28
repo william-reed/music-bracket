@@ -4,14 +4,18 @@ import './BracketContainer.css'
 import {RoundComponent} from "../components/bracket/RoundComponent";
 import {WinnerComponent} from "../components/bracket/WinnerComponent";
 
+interface BracketProps {
+  bracketId: string
+}
+
 interface BracketState {
   bracket: Bracket
   winner?: string,
 }
 
-export class BracketContainer extends React.Component<{}, BracketState> {
+export class BracketContainer extends React.Component<BracketProps, BracketState> {
 
-  constructor(props: any) {
+  constructor(props: BracketProps) {
     super(props);
 
     this.state = {
