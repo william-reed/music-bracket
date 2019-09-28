@@ -8,18 +8,13 @@ export interface SearchResultComponentProps {
   songAdded: (song: SongAndId) => void,
 }
 
-export class SearchResultComponent extends React.PureComponent<SearchResultComponentProps> {
-
-  render() {
-    return (
-      <div className={"search-result space"}>
-        <h5>{this.props.song.title}</h5>
-        <YouTubePlayer videoId={this.props.song.youtubeId} audioOnly={false}/>
-        <button onClick={() => this.props.songAdded(this.props.song)}
-                disabled={!this.props.moreSongsNeeded}>
-          Add Song
-        </button>
-      </div>
-    );
-  }
-}
+export default ({song, moreSongsNeeded, songAdded}: SearchResultComponentProps) =>
+  (<div className={"search-result space"}>
+      <h5>{song.title}</h5>
+      <YouTubePlayer videoId={song.youtubeId} audioOnly={false}/>
+      <button onClick={() => songAdded(song)}
+              disabled={!moreSongsNeeded}>
+        Add Song
+      </button>
+    </div>
+  )

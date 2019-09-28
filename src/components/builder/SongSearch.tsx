@@ -1,6 +1,6 @@
 import * as React from "react";
-import {SearchResultComponent} from "./SearchResultComponent";
 import {SongAndId} from "../../models/models";
+import SearchResultComponent from "./SearchResultComponent";
 
 export interface SongSearchProps {
   songAdded: (song: SongAndId) => void,
@@ -12,26 +12,23 @@ export interface SongSearchProps {
   loading: boolean
 }
 
-export class SongSearch extends React.PureComponent<SongSearchProps> {
 
-  render() {
-    return (
-      <div className={"space"}>
-        <input type="text"
-               value={this.props.query}
-               placeholder="Search for a song"
-               onChange={(event) => this.props.queryChanged(event.target.value)}/>
-        <button onClick={this.props.searchClicked}>Search</button>
+export default ({songAdded, searchClicked, queryChanged, moreSongsNeeded, query, searchResults, loading}: SongSearchProps) =>
+  (
+    <div className={"space"}>
+      <input type="text"
+             value={query}
+             placeholder="Search for a song"
+             onChange={(event) => queryChanged(event.target.value)}/>
+      <button onClick={searchClicked}>Search</button>
 
 
-        {this.props.loading && <p>Loading...</p>}
-        {!this.props.loading && this.props.searchResults &&
-        this.props.searchResults.map((song, i) => <SearchResultComponent song={song}
-                                                                         moreSongsNeeded={this.props.moreSongsNeeded}
-                                                                         songAdded={this.props.songAdded}
-                                                                         key={i}/>)
-        }
-      </div>
-    );
-  }
-}
+      {loading && <p>Loading...</p>}
+      {!loading && searchResults &&
+      searchResults.map((song, i) => <SearchResultComponent song={song}
+                                                            moreSongsNeeded={moreSongsNeeded}
+                                                            songAdded={songAdded}
+                                                            key={i}/>)
+      }
+    </div>
+  )

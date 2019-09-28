@@ -1,14 +1,17 @@
 import * as React from "react";
 import "./BuilderContainer.css"
 import {SizeSelector} from "../components/builder/SizeSelector";
-import {SongSearch} from "../components/builder/SongSearch";
-import {SongPicker} from "../components/builder/SongPicker";
+import SongSearch from "../components/builder/SongSearch";
+import SongPicker from "../components/builder/SongPicker";
 import {BuilderParentStore} from "../models/store/builder-store";
 import {Dispatch} from "redux";
 import {
   addSong,
-  setNumSongs, setSearchLoading,
-  setSearchQuery, setSearchResults, setSong,
+  setNumSongs,
+  setSearchLoading,
+  setSearchQuery,
+  setSearchResults,
+  setSong,
   setTitle,
 } from "../actions/builder/builder-actions";
 import {videoSearch} from "../api";
