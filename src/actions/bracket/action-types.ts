@@ -1,4 +1,5 @@
-import {ApiBracket, Winner} from "../../models/models";
+import {Winner} from "../../models/models";
+import {ApiBracket} from "../../models/api-models";
 
 export const SET_WINNER = "bracket:winner-set";
 export const SET_LOADING = "bracket:loading-set";

@@ -1,5 +1,6 @@
 import {BracketActionTypes, SET_BASE_DATA, SET_INVALID, SET_LOADING, SET_WINNER} from "./action-types";
-import {ApiBracket, Winner} from "../../models/models";
+import {Winner} from "../../models/models";
+import {ApiBracket} from "../../models/api-models";
 
 export function setWinner(round: number, match: number, winner: Winner): BracketActionTypes {
   return {

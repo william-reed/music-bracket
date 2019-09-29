@@ -64,7 +64,7 @@ function onRoundComplete(bracket: BracketStore, round: RoundStore): BracketStore
  * @returns {RoundStore} of the next round
  */
 function songsToRound(number: number, songs: number[]): RoundStore {
-  if (songs.length % 2 != 0) {
+  if (songs.length % 2 !== 0) {
     console.error("not given proper length")
   }
 
@@ -90,7 +90,6 @@ export function bracketParentReducer(
   switch (action.type) {
     case SET_BASE_DATA: {
       let data = action.payload;
-      let rounds = [];
 
       return {
         loading: false, invalid: false, bracket: {

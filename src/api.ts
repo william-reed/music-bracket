@@ -1,65 +1,35 @@
-import {ApiBracket, SongAndId} from "./models/models";
+import {SongAndId} from "./models/models";
+import {BracketId, ApiBracket} from "./models/api-models";
 
 const HOST = "http://127.0.0.1:8080";
 
-// generic fetch and assert to type
 // noinspection TypeScriptUnresolvedVariable
-function api<T>(url: string): Promise<T> {
-  return fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.statusText)
-      }
-      return ((response.json() as any) as T)
-    })
-
+function process<T>(fetch: Promise<Response>) {
+  return fetch.then(response => {
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+    return ((response.json() as any) as T)
+  })
 }
 
-function sleep(ms: number) {
-  // @ts-ignore
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-// TODO: just a mock for now
 // noinspection TypeScriptUnresolvedVariable
 export async function videoSearch(query: string): Promise<SongAndId[]> {
-  await sleep(200);
-  return [
-    {
-      title: "title 0",
-      youtubeId: "PsO6ZnUZI0g"
-    },
-    {
-      title: "title 1",
-      youtubeId: "HmAsUQEFYGI"
-    },
-    {
-      title: "title 2",
-      youtubeId: "RM7lw0Ovzq0"
-    },
-    {
-      title: "title 3",
-      youtubeId: "gG_dA32oH44"
-    },
-  ];
+  return process(fetch(HOST + `/search?query=${query}`));
 }
 
-// TODO: just a mock for now
 // noinspection TypeScriptUnresolvedVariable
 export async function getBracket(id: string): Promise<ApiBracket> {
-  await sleep(200);
+  return process(fetch(HOST + `/bracket?id=${id}`))
+}
 
-  return {
-    title: "",
-    songs: [
-      {title: "Runaway", youtubeId: "Jg5wkZ-dJXA"},
-      {title: "School Spirit", youtubeId: "-MOIPnu50O4"},
-      {title: "Earfquake", youtubeId: "HmAsUQEFYGI"},
-      {title: "After the Storm", youtubeId: "9f5zD7ZSNpQ"},
-      {title: "What would Meek do?", youtubeId: "hGhC473BCIM"},
-      {title: "Cash Machine", youtubeId: "9rx0eqQl8wk"},
-      {title: "Pink + White", youtubeId: "uzS3WG6__G4"},
-      {title: "Ms. Jackson", youtubeId: "MYxAiK6VnXw"},
-    ],
-  }
+// noinspection TypeScriptUnresolvedVariable
+export async function saveBracket(bracket: ApiBracket): Promise<BracketId> {
+  return process(fetch(HOST + `/bracket`, {
+    method: "post",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(bracket)
+  }))
 }

@@ -5,7 +5,7 @@ import {WinnerComponent} from "../components/bracket/WinnerComponent";
 import {Dispatch} from "redux";
 import {BracketParentStore, MatchStore, RoundStore} from "../models/store/bracket-store";
 import {Winner} from "../models/models";
-import {setBaseData, setLoading, setWinner} from "../actions/bracket/bracket-actions";
+import {setBaseData, setInvalid, setLoading, setWinner} from "../actions/bracket/bracket-actions";
 import {getBracket} from "../api";
 
 interface BracketProps {
@@ -21,11 +21,17 @@ export class BracketContainer extends React.Component<BracketProps> {
 
     dispatch(setLoading(true));
     // fetch bracket
-    getBracket("some bracket id")
-      .then((data) => {
-        dispatch(setLoading(false));
-        dispatch(setBaseData(data));
-      })
+    try {
+      getBracket(this.props.bracketId)
+        .then((data) => {
+          dispatch(setLoading(false));
+          dispatch(setBaseData(data));
+        })
+    } catch (e) {
+      console.error(e);
+      dispatch(setLoading(false));
+      dispatch(setInvalid(true));
+    }
   }
 
   render() {

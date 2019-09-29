@@ -14,7 +14,8 @@ import {
   setSong,
   setTitle,
 } from "../actions/builder/builder-actions";
-import {videoSearch} from "../api";
+import {saveBracket, videoSearch} from "../api";
+import {ApiBracket, BracketId} from "../models/api-models";
 
 interface BuilderProps {
   builder: BuilderParentStore,
@@ -26,6 +27,21 @@ export class BuilderContainer extends React.Component<BuilderProps> {
   moreSongsNeeded = () => {
     return this.props.builder.common.songs.some(song => song.title === "" && song.youtubeId === "")
       || this.props.builder.common.songs.length < this.props.builder.common.numSongs
+  };
+
+  createBracket = () => {
+    let common = this.props.builder.common;
+    let bracket: ApiBracket = {
+      title: common.title,
+      songs: common.songs,
+    };
+
+    try {
+      saveBracket(bracket)
+        .then((res: BracketId) => window.location.href = `/${res.id}`)
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   render() {
@@ -60,8 +76,8 @@ export class BuilderContainer extends React.Component<BuilderProps> {
               return <SongPicker title={title} youtubeId={youtubeId} key={i} setSong={s => dispatch(setSong(i, s))}/>
             })}
 
-            <button disabled={this.moreSongsNeeded()}
-                    onClick={() => console.log("todo create action for submitting a bracket")}>Submit
+            <button disabled={this.moreSongsNeeded() || !common.title}
+                    onClick={() => this.createBracket()}>Submit
             </button>
           </div>
           <div className={"search space"}>
